@@ -14,7 +14,7 @@ const CustomButton = ({width, height, radius, bg, title, color,onclick,marginTop
           justifyContent:'center',
           alignContent:'center',
           alignSelf:'center',
-          marginTop:marginTop
+          marginTop:marginTop,
         }}
         onPress={()=>{
             onclick();
