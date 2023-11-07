@@ -15,6 +15,7 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
+import CustomButton from '../Components/CustomButton';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -29,15 +30,24 @@ const Register = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Image source={require('../assets/images/Funex.png')} />
+        <Image
+          source={require('../assets/images/Funex.png')}
+          style={{height: responsiveHeight(5), width: responsiveWidth(30)}}
+        />
       </View>
       <View
-        style={{marginTop: responsiveHeight(9), justifyContent: 'center', alignSelf: 'center'}}>
-        <Text style={{fontWeight: 'bold', fontSize: responsiveFontSize(3.5)}}>SignUp</Text>
+        style={{
+          marginTop: responsiveHeight(9),
+          justifyContent: 'center',
+          alignSelf: 'center',
+        }}>
+        <Text style={{fontWeight: 'bold', fontSize: responsiveFontSize(3.5)}}>
+          SignUp
+        </Text>
       </View>
       <CustomTextInput
-       width={responsiveWidth(80)}
-       height={responsiveHeight(7)}
+        width={responsiveWidth(80)}
+        height={responsiveHeight(7)}
         bg={'#3F526E'}
         radius={responsiveWidth(8)}
         placeholder={'First and Last Name'}
@@ -46,8 +56,8 @@ const Register = () => {
         onChangeText={txt => setName(txt)}
       />
       <CustomTextInput
-       width={responsiveWidth(80)}
-       height={responsiveHeight(7)}
+        width={responsiveWidth(80)}
+        height={responsiveHeight(7)}
         bg={'#3F526E'}
         radius={responsiveWidth(8)}
         placeholder={'Email address'}
@@ -60,8 +70,8 @@ const Register = () => {
         secureTextEntry={true}
         width={responsiveWidth(80)}
         height={responsiveHeight(7)}
-         bg={'#3F526E'}
-         radius={responsiveWidth(8)}
+        bg={'#3F526E'}
+        radius={responsiveWidth(8)}
         placeholder={'Password'}
         placeholdertxtcolor={'#fff'}
         color={'#fff'}
@@ -107,6 +117,18 @@ const Register = () => {
           >
             <Text>Show ToolTip</Text> */}
       {/* </TouchableOpacity> */}
+      <CustomButton
+        width={responsiveWidth(80)}
+        height={responsiveHeight(7)}
+        bg={'#0EBAAB'}
+        radius={responsiveWidth(8)}
+        title={'SUBMIT'}
+        color={'#FFf'}
+        marginTop={responsiveHeight(2)}
+        onclick={() => {
+          navigation.navigate('Register');
+        }}
+      />
 
       <Modal visible={showTip} transparent>
         <TouchableOpacity
@@ -119,7 +141,7 @@ const Register = () => {
             style={{
               position: 'absolute',
               right: responsiveWidth(13),
-              bottom: Dimensions.get('window').height / 2 - 111,
+              bottom: Dimensions.get('window').height / 2 - 87,
               // bottom:responsiveWidth(80)
             }}>
             <View

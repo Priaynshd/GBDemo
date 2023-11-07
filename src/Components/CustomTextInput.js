@@ -28,8 +28,10 @@ const CustomTextInput = ({
   paddingHorizontal,
   onClick,
   onChangeText,
+  value
+  
 }) => {
-  const [value, setValue] = useState('');
+  const [data, setData] = useState(value);
 
   return (
     <SafeAreaView>
@@ -60,8 +62,9 @@ const CustomTextInput = ({
           placeholder={placeholder}
           placeholderTextColor={placeholdertxtcolor}
           color={color}
+          value={data}
           onChangeText={txt => {
-            setValue(txt);
+            setData(txt);
             onChangeText(txt);
           }}
         />

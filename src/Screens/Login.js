@@ -1,4 +1,12 @@
-import {View, Text, SafeAreaView, Image, TouchableOpacity, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+  PixelRatio,
+} from 'react-native';
 import React, {useState} from 'react';
 import CustomTextInput from '../Components/CustomTextInput';
 import CustomButton from '../Components/CustomButton';
@@ -6,13 +14,26 @@ import {useNavigation} from '@react-navigation/native';
 import {
   responsiveHeight,
   responsiveWidth,
-  responsiveFontSize
-} from "react-native-responsive-dimensions";
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
+import CustomCircle from '../Components/CustomCircle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Login = () => {
   const navigation = useNavigation();
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [badName, setBadName] = useState(false);
+
+  const SaveData = async () => {
+    try {
+      await AsyncStorage.setItem('EMAIL', email);
+      await AsyncStorage.setItem('PASSWORD', password);
+      navigation.navigate('MyContacts');
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const validate = () => {
     if (name == '') {
       setBadName(true);
@@ -23,15 +44,29 @@ const Login = () => {
   };
   return (
     <SafeAreaView>
-      <View>
-        <Image source={require('../assets/images/FunExSmilyFace.png')} />
+      <View style={{height: responsiveHeight(40)}}>
+        <Image
+          source={require('../assets/images/FunExSmilyFace.png')}
+          style={{
+            height: responsiveHeight(32),
+            width: responsiveWidth(100),
+            marginBottom: responsiveHeight(3),
+          }}
+        />
         <View
           style={{
-            marginTop: responsiveHeight(4),
+            marginTop: responsiveHeight(1),
             justifyContent: 'center',
             alignItems: 'center',
+            bottom: responsiveHeight(1),
           }}>
-          <Image source={require('../assets/images/Funex.png')} />
+          <Image
+            source={require('../assets/images/Funex.png')}
+            style={{
+              height: responsiveHeight(4),
+              width: responsiveWidth(30),
+            }}
+          />
         </View>
       </View>
       <CustomTextInput
@@ -44,7 +79,8 @@ const Login = () => {
         color={'#fff'}
         leftIcon={require('../assets/icons/profile.png')}
         alignItem={'center'}
-        onChangeText={txt => setName(txt)}
+        value={email}
+        onChangeText={txt => setEmail(txt)}
       />
       {badName && (
         <Text
@@ -70,10 +106,15 @@ const Login = () => {
         leftIcon={require('../assets/icons/pass.png')}
         rightIcon={require('../assets/icons/eye.png')}
         alignItem={'center'}
+        value={password}
         onChangeText={txt => setPassword(txt)}
       />
       <TouchableOpacity
-        style={{alignItems: 'flex-end', paddingHorizontal: responsiveWidth(13), marginTop: responsiveHeight(1)}}>
+        style={{
+          alignItems: 'flex-end',
+          paddingHorizontal: responsiveWidth(13),
+          marginTop: responsiveHeight(1),
+        }}>
         <Text>Forget Password ?</Text>
       </TouchableOpacity>
 
@@ -86,15 +127,41 @@ const Login = () => {
         color={'#FFf'}
         marginTop={responsiveHeight(2)}
         onclick={() => {
-          navigation.navigate('Register');
+          // navigation.navigate('MyContacts');
+          // validate();
+          SaveData();
         }}
       />
+      <View
+        style={{
+          marginTop: responsiveHeight(3),
+          marginLeft: responsiveWidth(3),
+          width: responsiveWidth(80),
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          marginLeft: responsiveWidth(5),
+        }}>
+        {/* <Text>hii</Text> */}
+        <CustomCircle Icon={require('../assets/images/apple.png')} />
+        <CustomCircle Icon={require('../assets/images/facebook.png')} />
+
+        <CustomCircle Icon={require('../assets/images/google.png')} />
+      </View>
       <TouchableOpacity
-        style={{  justifyContent: 'center',alignSelf:'center', position:'absolute',marginTop:responsiveHeight(95)}}
+        style={{
+          justifyContent: 'center',
+          alignSelf: 'center',
+          position: 'absolute',
+          marginTop: responsiveHeight(95),
+        }}
         onPress={() => {
           navigation.navigate('Register');
         }}>
-        <Text style={{fontSize:responsiveFontSize(2)}}>Don’t have an account? Sign Up Here </Text>
+        <Text style={{fontSize: responsiveFontSize(2)}}>
+          Don’t have an account? Sign Up Here{' '}
+        </Text>
       </TouchableOpacity>
 
       {/* <CustomTextInput
